@@ -1,0 +1,9 @@
+
+## Create a new Fruits
+POST http://localhost:3000/fruits/create
+Content-Type: application/json
+
+{
+  "name": "orange",
+  "amount": 6
+}
