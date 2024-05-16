@@ -1,8 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Fruits } from './fruits.entity';
-import { create } from 'domain';
 
 @Injectable()
 export class FruitsService {
@@ -20,5 +19,22 @@ export class FruitsService {
     const fruit = this.repo.create({ name, amount });
 
     return this.repo.save(fruit);
+  }
+
+  async update(id: number, attrs: Partial<Fruits>) {
+    const fruit = await this.getFruitById(id);
+    if (!fruit) {
+      throw new NotFoundException('Fruit not found');
+    }
+    Object.assign(fruit, attrs);
+    return this.repo.save(fruit);
+  }
+
+  async remove(id: number) {
+    const fruit = await this.getFruitById(id);
+    if (!fruit) {
+      throw new NotFoundException('Fruit not found');
+    }
+    return this.repo.remove(fruit);
   }
 }

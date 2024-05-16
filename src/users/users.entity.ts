@@ -1,4 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Order } from 'src/order/order.entity';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  AfterInsert,
+  AfterUpdate,
+  OneToMany,
+} from 'typeorm';
 
 @Entity()
 export class User {
@@ -7,4 +15,20 @@ export class User {
 
   @Column()
   name: string;
+
+  @Column()
+  email: string;
+
+  @OneToMany(() => Order, (order) => order.user)
+  orders: Order[];
+
+  @AfterInsert()
+  logInsert() {
+    console.log('Inserted User with id: ', this.id);
+  }
+
+  @AfterUpdate()
+  logUpdate() {
+    console.log('Updated User with id: ', this.id);
+  }
 }

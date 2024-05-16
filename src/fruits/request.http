@@ -7,3 +7,19 @@ Content-Type: application/json
   "name": "orange",
   "amount": 6
 }
+
+## Find all Fruit 
+GET http://localhost:3000/fruits/all
+
+## Find One Fruit with a given ID
+GET http://localhost:3000/fruits/1
+
+## Delete a Fruit given id
+DELETE http://localhost:3000/fruits/delete/1
+
+##Update Fruit 
+PATCH http://localhost:3000/fruits/update/2
+
+{
+  "amount": 1
+}
